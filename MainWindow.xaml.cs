@@ -32,21 +32,10 @@ namespace CNA_LECTURE_5
                 MessageBox.Show("das is empty", "whoops");
             }
             else 
-            {
-                string message1 = MessagerBox.Text;
-                MessagerBox.Text = "";
-                if (LocalName.Text == "")
-                {
-                    MessageBox.Show("Pls Name. Thx.", "Whoops");
-                    MessagerBox.Text = message1;
-                }
-                else 
-                { 
-                    string name = LocalName.Text;
-                    ChatBox.Text = ChatBox.Text +name + ": " + message1+"\n";
-                }
+            { 
+            
             }
-
+            SendMessage();
         }
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
@@ -57,6 +46,26 @@ namespace CNA_LECTURE_5
         private void TextBox_TextChanged_2(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void SendMessage(string message, string name) 
+        {
+            
+            else
+            {
+                string message1 = MessagerBox.Text;
+                MessagerBox.Text = "";
+                if (LocalName.Text == "")
+                {
+                    MessageBox.Show("Pls Name. Thx.", "Whoops");
+                    MessagerBox.Text = message1;
+                }
+                else
+                {
+                    string name = LocalName.Text;
+                    ChatBox.Text = ChatBox.Text + name + ": " + message1 + "\n";
+                }
+            }
         }
     }
 }
