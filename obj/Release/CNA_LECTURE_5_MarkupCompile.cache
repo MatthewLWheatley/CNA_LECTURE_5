@@ -1,19 +1,19 @@
 ﻿CNA_LECTURE_5
 
 
-winexe
+exe
 C#
 .cs
-C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\obj\Debug\
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\obj\Release\
 CNA_LECTURE_5
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\App.xaml
 1219584333
 
 6-1672706697
-13-1310406943
+13-38814620
 MainWindow.xaml;
 
 True

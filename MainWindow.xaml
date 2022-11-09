@@ -19,7 +19,8 @@
             VerticalAlignment="Top" 
             Width="670" Height="334" 
             TextChanged="TextBox_TextChanged_1" 
-            VerticalScrollBarVisibility="Auto"/>
+            VerticalScrollBarVisibility="Auto"
+            IsReadOnly="True"/>
 
         <TextBox Name="MessagerBox" 
             HorizontalAlignment="Left" 

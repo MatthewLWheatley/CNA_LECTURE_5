@@ -27,15 +27,13 @@ namespace CNA_LECTURE_5
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (MessagerBox.Text == "")
+            string temp = SendMessage(MessagerBox.Text,LocalName.Text);
+            if (temp != "") 
             {
-                MessageBox.Show("das is empty", "whoops");
+                ChatBox.Text += temp;
+                MessagerBox.Text = "";
             }
-            else 
-            { 
             
-            }
-            SendMessage();
         }
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
@@ -48,23 +46,17 @@ namespace CNA_LECTURE_5
 
         }
 
-        private void SendMessage(string message, string name) 
+        private string SendMessage(string message, string name) 
         {
-            
+            if (message == "" || name == "")
+            {
+                MessageBox.Show("Please Fill Out The Required Boxes.", "Straight Oopsies");
+                return "";
+            }
             else
             {
-                string message1 = MessagerBox.Text;
-                MessagerBox.Text = "";
-                if (LocalName.Text == "")
-                {
-                    MessageBox.Show("Pls Name. Thx.", "Whoops");
-                    MessagerBox.Text = message1;
-                }
-                else
-                {
-                    string name = LocalName.Text;
-                    ChatBox.Text = ChatBox.Text + name + ": " + message1 + "\n";
-                }
+
+                return DateTime.Now + " [" + name + "]: " + message + "\n";
             }
         }
     }
