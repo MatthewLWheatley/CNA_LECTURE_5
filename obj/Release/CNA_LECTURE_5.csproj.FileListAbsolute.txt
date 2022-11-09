@@ -1,6 +1,0 @@
-C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\obj\Release\CNA_LECTURE_5.csproj.AssemblyReference.cache
-C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\obj\Release\CNA_LECTURE_5.csproj.SuggestedBindingRedirects.cache
-C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\obj\Release\MainWindow.g.cs
-C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\obj\Release\App.g.cs
-C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\obj\Release\CNA_LECTURE_5_MarkupCompile.cache
-C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\obj\Release\CNA_LECTURE_5_MarkupCompile.lref
