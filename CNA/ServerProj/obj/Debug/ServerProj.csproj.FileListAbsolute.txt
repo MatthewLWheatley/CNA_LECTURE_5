@@ -6,3 +6,11 @@ C:\Users\W027271K\source\repos\CNA\ServerProj\obj\Debug\ServerProj.csproj.Sugges
 C:\Users\W027271K\source\repos\CNA\ServerProj\obj\Debug\ServerProj.csproj.CoreCompileInputs.cache
 C:\Users\W027271K\source\repos\CNA\ServerProj\obj\Debug\ServerProj.exe
 C:\Users\W027271K\source\repos\CNA\ServerProj\obj\Debug\ServerProj.pdb
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProj\bin\Debug\ServerProj.exe.config
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProj\bin\Debug\ServerProj.exe
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProj\bin\Debug\ServerProj.pdb
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProj\obj\Debug\ServerProj.csproj.AssemblyReference.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProj\obj\Debug\ServerProj.csproj.SuggestedBindingRedirects.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProj\obj\Debug\ServerProj.csproj.CoreCompileInputs.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProj\obj\Debug\ServerProj.exe
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProj\obj\Debug\ServerProj.pdb
