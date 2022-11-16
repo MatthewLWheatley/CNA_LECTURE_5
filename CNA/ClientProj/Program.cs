@@ -24,12 +24,23 @@ namespace ClientProj
         private StreamWriter m_Wirter;
         private StreamReader m_Reader;
 
+        public IPAddress IP { get; set; }
+
         public Client() 
-        { 
-        
+        {
+            m_TcpClient = new TcpClient();
+            try
+            {
+                
+                m_TcpClient.Connect();
+            }
+            catch 
+            { 
+                
+            }
         }
 
-        public bool Connect(string ipAddress, int pool) 
+        public bool Connect(string ipAddress, int port) 
         {
             return false;
         }
