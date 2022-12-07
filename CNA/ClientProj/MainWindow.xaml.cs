@@ -20,9 +20,11 @@ namespace ClientProj
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        Client m_client;
+        public MainWindow(Client client)
         {
             InitializeComponent();
+            m_client = client;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,6 +36,14 @@ namespace ClientProj
                 MessagerBox.Text = "";
             }
 
+        }
+
+        private void UpdateChatBox(string message)
+        {
+            ChatBox.Dispatcher.Invoke(() =>
+            {
+                ChatBox.Text += message + Environment.NewLine; ChatBox.ScrollToEnd();
+            });
         }
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)

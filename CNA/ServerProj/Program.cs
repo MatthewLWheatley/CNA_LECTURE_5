@@ -40,7 +40,7 @@ namespace ServerProj
             m_TcpListener.Start();
             while (true)
             {
-                    
+               
                 // Accept incoming connections
                 Socket socket = m_TcpListener.AcceptSocket();
 
@@ -53,12 +53,11 @@ namespace ServerProj
                 // Start a new thread to handle the client's requests
                 Thread thread = new Thread(() => ClientMethod(clientIndex));
                 thread.Start();
-
+                Thread.Sleep(500);
                 // Increment the client index
                 clientIndex++;
             }
-            //Socket socket = m_TcpListener.AcceptSocket();
-
+            
         }
 
         public void Stop()
@@ -68,14 +67,16 @@ namespace ServerProj
 
         private void ClientMethod(int index)
         {
+            Console.WriteLine(index);
             string receivedMessage = "";
 
-            m_Clients[0].Send("You Have Connected To The STREAM");
+            m_Clients[index].Send("You Have Connected To The STREAM");
 
-            while ((receivedMessage = m_Clients[0].Read()) != null)
+            while ((receivedMessage = m_Clients[index].Read()) != null)
             {
                 receivedMessage = GetReturnMessage(receivedMessage);
-                m_Clients[0].Send(receivedMessage);
+                BroadcastMessage(receivedMessage);
+                m_Clients[index].Send(receivedMessage);
 
                 if (receivedMessage == "end")
                 {
@@ -83,8 +84,16 @@ namespace ServerProj
                 }
             }
 
-            m_Clients[0].Close();
+            m_Clients[index].Close();
 
+        }
+
+        public void BroadcastMessage(string message)
+        {
+            foreach (var client in m_Clients.Values)
+            {
+                client.Send(message);
+            }
         }
 
         private string GetReturnMessage(string code)
@@ -145,3 +154,4 @@ namespace ServerProj
         }
     }
 }
+/*can you create a broadcast system so if one client sends a message the server will send it to all other clients*/
