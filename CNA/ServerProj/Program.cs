@@ -25,13 +25,12 @@ namespace ServerProj
     {
         private static TcpListener m_TcpListener;
 
-        ConcurrentDictionary<int, ConnectedClient> m_Clients;
+        private ConcurrentDictionary<int, ConnectedClient> m_Clients;
 
         public Server(string ipAdress, int port)
         {
             IPAddress ip = IPAddress.Parse(ipAdress);
             m_TcpListener = new TcpListener(ip, port);
-
         }
 
         public void Start()
@@ -71,12 +70,12 @@ namespace ServerProj
         {
             string receivedMessage = "";
 
-            //m_Clients[index].Send("You Have Connected To The STREAM");
+            m_Clients[0].Send("You Have Connected To The STREAM");
 
-            while ((receivedMessage = m_Clients[index].Read()) != null)
+            while ((receivedMessage = m_Clients[0].Read()) != null)
             {
                 receivedMessage = GetReturnMessage(receivedMessage);
-                m_Clients[index].Send(receivedMessage);
+                m_Clients[0].Send(receivedMessage);
 
                 if (receivedMessage == "end")
                 {
@@ -84,7 +83,7 @@ namespace ServerProj
                 }
             }
 
-            m_Clients[index].Close();
+            m_Clients[0].Close();
 
         }
 
@@ -98,7 +97,7 @@ namespace ServerProj
         }
     }
 
-    public class ConnectedClient 
+    public class ConnectedClient
     {
         Socket m_socket;
         NetworkStream m_Stream;
@@ -107,8 +106,8 @@ namespace ServerProj
         object m_ReadLock;
         object m_WriteLock;
 
-        public ConnectedClient(Socket socket) 
-        { 
+        public ConnectedClient(Socket socket)
+        {
             m_WriteLock = new object();
             m_ReadLock = new object();
 
@@ -120,25 +119,25 @@ namespace ServerProj
             m_Writer = new StreamWriter(m_Stream, Encoding.UTF8);
         }
 
-        public void Close() 
-        { 
+        public void Close()
+        {
             m_Stream.Close();
             m_Reader.Close();
             m_Writer.Close();
             m_socket.Close();
         }
 
-        public string Read() 
+        public string Read()
         {
-            lock (m_ReadLock) 
-            { 
+            lock (m_ReadLock)
+            {
                 return m_Reader.ReadLine();
             }
         }
 
-        public void Send(string message) 
+        public void Send(string message)
         {
-            lock (m_WriteLock) 
+            lock (m_WriteLock)
             {
                 m_Writer.WriteLine(message);
                 m_Writer.Flush();
