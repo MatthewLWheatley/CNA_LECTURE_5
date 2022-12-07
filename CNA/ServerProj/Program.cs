@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.IO;
 using System.Collections.Concurrent;
+using System.Threading;
 
 namespace ServerProj
 {
@@ -30,19 +31,35 @@ namespace ServerProj
         {
             IPAddress ip = IPAddress.Parse(ipAdress);
             m_TcpListener = new TcpListener(ip, port);
+
         }
 
         public void Start()
         {
             m_Clients = new ConcurrentDictionary<int, ConnectedClient>();
-            int clientIndex = 0, connectionLimit = 4;
+            int clientIndex = 0;
             m_TcpListener.Start();
-            while (true) 
-            { 
-                
+            while (true)
+            {
+                    
+                // Accept incoming connections
+                Socket socket = m_TcpListener.AcceptSocket();
+
+                // Create a new ConnectedClient instance
+                ConnectedClient client = new ConnectedClient(socket);
+
+                // Add the client to the clients dictionary
+                m_Clients.TryAdd(clientIndex, client);
+
+                // Start a new thread to handle the client's requests
+                Thread thread = new Thread(() => ClientMethod(clientIndex));
+                thread.Start();
+
+                // Increment the client index
+                clientIndex++;
             }
             //Socket socket = m_TcpListener.AcceptSocket();
-            
+
         }
 
         public void Stop()
@@ -50,30 +67,26 @@ namespace ServerProj
             m_TcpListener.Stop();
         }
 
-        //private void ClientMethod(Socket socket)
-        //{
-        //    string receivedMessage = "";
-        //    NetworkStream stream = new NetworkStream(socket,true);
+        private void ClientMethod(int index)
+        {
+            string receivedMessage = "";
 
-        //    StreamReader streamReader = new StreamReader(stream, Encoding.UTF8);
-        //    StreamWriter streamWriter = new StreamWriter(stream, Encoding.UTF8);
+            //m_Clients[index].Send("You Have Connected To The STREAM");
 
-        //    streamWriter.WriteLine("You Have connected to the STREAM");
-        //    streamWriter.Flush();
+            while ((receivedMessage = m_Clients[index].Read()) != null)
+            {
+                receivedMessage = GetReturnMessage(receivedMessage);
+                m_Clients[index].Send(receivedMessage);
 
-        //    while ((receivedMessage = streamReader.ReadLine()) != null)
-        //    {
-        //        receivedMessage = GetReturnMessage(receivedMessage);
-        //        streamWriter.WriteLine(receivedMessage);
-        //        streamWriter.Flush();
-        //        if (receivedMessage == "end") 
-        //        {
-        //            break;
-        //        }
-        //    }
+                if (receivedMessage == "end")
+                {
+                    break;
+                }
+            }
 
-        //    socket.Close();
-        //}
+            m_Clients[index].Close();
+
+        }
 
         private string GetReturnMessage(string code)
         {
