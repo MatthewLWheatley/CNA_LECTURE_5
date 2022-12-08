@@ -70,13 +70,13 @@ namespace ServerProj
             Console.WriteLine(index);
             string receivedMessage = "";
 
-            m_Clients[index].Send("You Have Connected To The STREAM");
+            m_Clients[index].SendMessage("You Have Connected To The STREAM");
 
             while ((receivedMessage = m_Clients[index].Read()) != null)
             {
                 receivedMessage = GetReturnMessage(receivedMessage);
                 BroadcastMessage(receivedMessage);
-                m_Clients[index].Send(receivedMessage);
+                m_Clients[index].SendMessage(receivedMessage);
 
                 if (receivedMessage == "end")
                 {
@@ -92,7 +92,7 @@ namespace ServerProj
         {
             foreach (var client in m_Clients.Values)
             {
-                client.Send(message);
+                client.SendMessage(message);
             }
         }
 
@@ -144,13 +144,15 @@ namespace ServerProj
             }
         }
 
-        public void Send(string message)
+        public void SendMessage(string message)
         {
-            lock (m_WriteLock)
+            if (message == "")
             {
-                m_Writer.WriteLine(message);
-                m_Writer.Flush();
+                return;
             }
+
+            m_Writer.WriteLine(message);
+            m_Writer.Flush();
         }
     }
 }

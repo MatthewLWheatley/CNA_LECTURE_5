@@ -12,6 +12,7 @@ namespace ClientProj
 {
     internal class Program
     {
+        [STAThread]
         public static void Main()
         {
             Client client = new Client();
@@ -27,7 +28,7 @@ namespace ClientProj
         private StreamReader m_Reader;
 
         public int Port { get; set; }
-        public MainWindow form { get; set; }
+        public MainWindow form;
 
         public Client()
         {
@@ -53,7 +54,7 @@ namespace ClientProj
 
         public void Run()
         {
-            form = new MainWindow(this);
+            MainWindow form = new MainWindow(this);
             Thread thread = new Thread(ProcessServerResponse);
             thread.Start();
             form.Dispatcher.Invoke(() => form.ShowDialog());
@@ -66,7 +67,7 @@ namespace ClientProj
                 try
                 {
                     string response = m_Reader.ReadLine();
-                    form.Dispatcher.Invoke(() => form.UpdateChatBox("server says: " + response + "\n"));
+                    form.UpdateChatBox("server says: " + response + "\n");
                 }
                 catch (Exception e)
                 {
