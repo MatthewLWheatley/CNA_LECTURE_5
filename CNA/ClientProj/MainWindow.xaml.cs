@@ -32,9 +32,8 @@ namespace ClientProj
             string temp = SendMessage(MessagerBox.Text, LocalName.Text);
             if (temp != "")
             {
-                
+                m_client.SendMessage(temp);
             }
-                
         }
 
         public void UpdateChatBox(string message)

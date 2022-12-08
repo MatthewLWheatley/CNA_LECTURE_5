@@ -76,7 +76,7 @@ namespace ServerProj
             {
                 receivedMessage = GetReturnMessage(receivedMessage);
                 BroadcastMessage(receivedMessage);
-                m_Clients[index].SendMessage(receivedMessage);
+                //m_Clients[index].SendMessage(receivedMessage);
 
                 if (receivedMessage == "end")
                 {

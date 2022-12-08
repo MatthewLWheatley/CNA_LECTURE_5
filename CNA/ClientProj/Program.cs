@@ -54,7 +54,7 @@ namespace ClientProj
 
         public void Run()
         {
-            MainWindow form = new MainWindow(this);
+            form = new MainWindow(this);
             Thread thread = new Thread(ProcessServerResponse);
             thread.Start();
             form.Dispatcher.Invoke(() => form.ShowDialog());
@@ -67,7 +67,7 @@ namespace ClientProj
                 try
                 {
                     string response = m_Reader.ReadLine();
-                    form.UpdateChatBox("server says: " + response + "\n");
+                    form.UpdateChatBox( response + "\n");
                 }
                 catch (Exception e)
                 {
@@ -79,10 +79,6 @@ namespace ClientProj
 
         public void SendMessage(string message)
         {
-            if (message == "")
-            {
-                return;
-            }
 
             m_Writer.WriteLine(message);
             m_Writer.Flush();
