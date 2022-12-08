@@ -154,4 +154,3 @@ namespace ServerProj
         }
     }
 }
-/*can you create a broadcast system so if one client sends a message the server will send it to all other clients*/

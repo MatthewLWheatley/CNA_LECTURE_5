@@ -32,13 +32,12 @@ namespace ClientProj
             string temp = SendMessage(MessagerBox.Text, LocalName.Text);
             if (temp != "")
             {
-                ChatBox.Text += temp;
-                MessagerBox.Text = "";
+                
             }
-
+                
         }
 
-        private void UpdateChatBox(string message)
+        public void UpdateChatBox(string message)
         {
             ChatBox.Dispatcher.Invoke(() =>
             {

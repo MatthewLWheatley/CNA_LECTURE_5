@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 using System.IO;
+using System.Threading;
 
 namespace ClientProj
 {
@@ -18,8 +19,7 @@ namespace ClientProj
             else Console.WriteLine("Faild to connect to server");
         }
     }
-
-    public class Client 
+    public class Client
     {
         private TcpClient m_TcpClient;
         private NetworkStream m_Stream;
@@ -27,14 +27,14 @@ namespace ClientProj
         private StreamReader m_Reader;
 
         public int Port { get; set; }
+        public MainWindow form { get; set; }
 
-        public Client() 
+        public Client()
         {
             m_TcpClient = new TcpClient();
-            
         }
 
-        public bool Connect(string ipAddress, int port) 
+        public bool Connect(string ipAddress, int port)
         {
             try
             {
@@ -51,27 +51,40 @@ namespace ClientProj
             }
         }
 
-        public void Run() 
+        public void Run()
         {
-            string userinput = null;
-            ProccessServerResponse();
-            while ((userinput = Console.ReadLine()) != null) 
+            form = new MainWindow(this);
+            Thread thread = new Thread(ProcessServerResponse);
+            thread.Start();
+            form.Dispatcher.Invoke(() => form.ShowDialog());
+        }
+
+        public void ProcessServerResponse()
+        {
+            while (m_TcpClient.Connected)
             {
-                m_Writer.WriteLine(userinput);
-                m_Writer.Flush();
-                ProccessServerResponse();
-                if (userinput == "exit") 
+                try
                 {
+                    string response = m_Reader.ReadLine();
+                    form.Dispatcher.Invoke(() => form.UpdateChatBox("server says: " + response + "\n"));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
                     break;
                 }
             }
-            m_TcpClient.Close();
-
         }
 
-        private void ProccessServerResponse() 
+        public void SendMessage(string message)
         {
-            Console.WriteLine("server says: " + m_Reader.ReadLine() + "\n");
+            if (message == "")
+            {
+                return;
+            }
+
+            m_Writer.WriteLine(message);
+            m_Writer.Flush();
         }
     }
 }
