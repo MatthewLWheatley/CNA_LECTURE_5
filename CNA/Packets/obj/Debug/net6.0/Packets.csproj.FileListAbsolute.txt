@@ -1,0 +1,12 @@
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\bin\Debug\net6.0\Packets.deps.json
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\bin\Debug\net6.0\Packets.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\bin\Debug\net6.0\Packets.pdb
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\Packets.csproj.AssemblyReference.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\Packets.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\Packets.AssemblyInfoInputs.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\Packets.AssemblyInfo.cs
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\Packets.csproj.CoreCompileInputs.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\Packets.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\refint\Packets.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\Packets.pdb
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\Packets\obj\Debug\net6.0\ref\Packets.dll

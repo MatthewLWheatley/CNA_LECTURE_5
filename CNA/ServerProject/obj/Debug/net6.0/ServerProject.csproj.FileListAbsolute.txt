@@ -1,0 +1,5 @@
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.csproj.AssemblyReference.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.AssemblyInfoInputs.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.AssemblyInfo.cs
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.csproj.CoreCompileInputs.cache

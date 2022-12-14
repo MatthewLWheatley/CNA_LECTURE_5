@@ -61,3 +61,6 @@ C:\Users\Matty\Documents\GitHub\CNA_LECTURE_5\CNA\ClientProj\obj\Debug\net6.0-wi
 C:\Users\Matty\Documents\GitHub\CNA_LECTURE_5\CNA\ClientProj\obj\Debug\net6.0-windows\ClientProj.pdb
 C:\Users\Matty\Documents\GitHub\CNA_LECTURE_5\CNA\ClientProj\obj\Debug\net6.0-windows\ClientProj.genruntimeconfig.cache
 C:\Users\Matty\Documents\GitHub\CNA_LECTURE_5\CNA\ClientProj\obj\Debug\net6.0-windows\ref\ClientProj.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ClientProj\bin\Debug\net6.0-windows\Packets.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ClientProj\bin\Debug\net6.0-windows\Packets.pdb
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ClientProj\obj\Debug\net6.0-windows\ClientProj.csproj.CopyComplete

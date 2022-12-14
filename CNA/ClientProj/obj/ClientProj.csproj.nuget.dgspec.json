@@ -1,38 +1,41 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Matty\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\ClientProj.csproj": {}
+    "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\ClientProj.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Matty\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\ClientProj.csproj": {
+    "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\ClientProj.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Matty\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\ClientProj.csproj",
+        "projectUniqueName": "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\ClientProj.csproj",
         "projectName": "ClientProj",
-        "projectPath": "C:\\Users\\Matty\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\ClientProj.csproj",
-        "packagesPath": "C:\\Users\\Matty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Matty\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\obj\\",
+        "projectPath": "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\ClientProj.csproj",
+        "packagesPath": "C:\\Users\\W027271K\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\ClientProj\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Matty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\W027271K\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows"
+          "net6.0-windows7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\Packets\\Packets.csproj": {
+                "projectPath": "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\Packets\\Packets.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -50,8 +53,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -63,7 +65,65 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.306\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\Packets\\Packets.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\Packets\\Packets.csproj",
+        "projectName": "Packets",
+        "projectPath": "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\Packets\\Packets.csproj",
+        "packagesPath": "C:\\Users\\W027271K\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\W027271K\\Documents\\GitHub\\CNA_LECTURE_5\\CNA\\Packets\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\W027271K\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

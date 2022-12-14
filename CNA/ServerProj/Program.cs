@@ -8,6 +8,8 @@ using System.Net;
 using System.IO;
 using System.Collections.Concurrent;
 using System.Threading;
+using System.Runtime.Serialization.Formatters.Binary;
+using Packet;
 
 namespace ServerProj
 {
@@ -40,7 +42,7 @@ namespace ServerProj
             m_TcpListener.Start();
             while (true)
             {
-               
+
                 // Accept incoming connections
                 Socket socket = m_TcpListener.AcceptSocket();
 
@@ -57,7 +59,7 @@ namespace ServerProj
                 // Increment the client index
                 clientIndex++;
             }
-            
+
         }
 
         public void Stop()
@@ -110,8 +112,9 @@ namespace ServerProj
     {
         Socket m_socket;
         NetworkStream m_Stream;
-        StreamReader m_Reader;
-        StreamWriter m_Writer;
+        BinaryReader m_Reader;
+        BinaryWriter m_Writer;
+        BinaryFormatter m_Formatter;
         object m_ReadLock;
         object m_WriteLock;
 
@@ -124,8 +127,9 @@ namespace ServerProj
 
             m_Stream = new NetworkStream(socket, true);
 
-            m_Reader = new StreamReader(m_Stream, Encoding.UTF8);
-            m_Writer = new StreamWriter(m_Stream, Encoding.UTF8);
+            m_Reader = new BinaryReader(m_Stream, Encoding.UTF8);
+            m_Writer = new BinaryWriter(m_Stream, Encoding.UTF8);
+            m_Formatter = new BinaryFormatter();
         }
 
         public void Close()
@@ -144,7 +148,7 @@ namespace ServerProj
             }
         }
 
-        public void SendMessage(string message)
+        public void SendMessage(Packet )
         {
             if (message == "")
             {
