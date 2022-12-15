@@ -165,6 +165,16 @@ namespace ServerProj
                     Console.WriteLine($"Error while reading packet: {ex.Message}");
                 }
                 return null;
+
+                int numberOfBytes;
+                if ((numberOfBytes = m_Reader.ReadInt32()) != -1)
+                {
+                    byte[] buffer = m_Reader.ReadBytes(numberOfBytes);
+                    MemoryStream ms = new MemoryStream();
+                    ms.Write(buffer);
+
+                }
+                return m_Reader.ReadLine();
             }
         }
 
