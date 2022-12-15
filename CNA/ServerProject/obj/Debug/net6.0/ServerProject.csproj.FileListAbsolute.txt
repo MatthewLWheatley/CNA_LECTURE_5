@@ -3,3 +3,16 @@ C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net
 C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.AssemblyInfoInputs.cache
 C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.AssemblyInfo.cs
 C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.csproj.CoreCompileInputs.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\bin\Debug\net6.0\ServerProject.exe
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\bin\Debug\net6.0\ServerProject.deps.json
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\bin\Debug\net6.0\ServerProject.runtimeconfig.json
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\bin\Debug\net6.0\ServerProject.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\bin\Debug\net6.0\ServerProject.pdb
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\bin\Debug\net6.0\Packets.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\bin\Debug\net6.0\Packets.pdb
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.csproj.CopyComplete
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\refint\ServerProject.dll
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.pdb
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ServerProject.genruntimeconfig.cache
+C:\Users\W027271K\Documents\GitHub\CNA_LECTURE_5\CNA\ServerProject\obj\Debug\net6.0\ref\ServerProject.dll

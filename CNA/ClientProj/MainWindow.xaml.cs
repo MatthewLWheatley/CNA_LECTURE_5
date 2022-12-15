@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Packets;
 
 namespace ClientProj
 {
@@ -30,9 +31,10 @@ namespace ClientProj
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string temp = SendMessage(MessagerBox.Text, LocalName.Text);
+
             if (temp != "")
             {
-                m_client.SendMessage(temp);
+                m_client.Send(temp);
             }
         }
 

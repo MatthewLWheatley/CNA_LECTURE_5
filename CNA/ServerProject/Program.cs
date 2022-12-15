@@ -70,33 +70,37 @@ namespace ServerProj
         private void ClientMethod(int index)
         {
             Console.WriteLine(index);
-            string receivedMessage = "";
+            Packet receivedPacket = null;
 
-            m_Clients[index].SendMessage("You Have Connected To The STREAM");
+            m_Clients[index].SendMessage(new ChatMessagePacket("hello"));
 
-            while ((receivedMessage = m_Clients[index].Read()) != null)
+            while ((receivedPacket = m_Clients[index].Read()) != null)
             {
-                receivedMessage = GetReturnMessage(receivedMessage);
-                BroadcastMessage(receivedMessage);
-                //m_Clients[index].SendMessage(receivedMessage);
-
-                if (receivedMessage == "end")
+                // Use a switch statement to handle the different types of packets
+                switch (receivedPacket.packetType)
                 {
-                    break;
+                    case Packet.PacketType.ChatMessage:
+                        ChatMessagePacket chatMessagePacket = (ChatMessagePacket)receivedPacket;
+
+                        string receivedMessage = GetReturnMessage(chatMessagePacket.message);
+
+                        // Broadcast the message to all connected clients
+                        //BroadcastMessage(receivedMessage);
+
+                        break;
                 }
             }
 
             m_Clients[index].Close();
-
         }
 
-        public void BroadcastMessage(string message)
-        {
-            foreach (var client in m_Clients.Values)
-            {
-                client.SendMessage(message);
-            }
-        }
+        //public void BroadcastMessage(string message)
+        //{
+        //    foreach (var client in m_Clients.Values)
+        //    {
+        //        client.SendMessage(message);
+        //    }
+        //}
 
         private string GetReturnMessage(string code)
         {
@@ -144,7 +148,23 @@ namespace ServerProj
         {
             lock (m_ReadLock)
             {
-                return m_Reader.ReadLine();
+                try
+                {
+                    if (m_Reader.ReadInt32() != -1)
+                    {
+                        Int32 length = m_Reader.ReadInt32();
+                        byte[] buffer = m_Reader.ReadBytes(length);
+
+                        MemoryStream ms = new MemoryStream(buffer);
+                        return (Packet)m_Formatter.Deserialize(ms) as ChatMessagePacket;
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error while reading packet: {ex.Message}");
+                }
+                return null;
             }
         }
 
@@ -153,8 +173,9 @@ namespace ServerProj
             using (MemoryStream ms = new MemoryStream())
             {
                 m_Formatter.Serialize(ms, message);
+                Console.WriteLine(Encoding.UTF8.GetString(ms.ToArray()));
                 byte[] buffer = ms.GetBuffer();
-                m_Writer.Write(buffer, 0, buffer.Length);
+                m_Writer.Write(buffer.Length);
                 m_Writer.Write(buffer);
                 m_Writer.Flush();
             }

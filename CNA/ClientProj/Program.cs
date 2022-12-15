@@ -7,6 +7,8 @@ using System.Net.Sockets;
 using System.Net;
 using System.IO;
 using System.Threading;
+using Packets;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ClientProj
 {
@@ -24,8 +26,11 @@ namespace ClientProj
     {
         private TcpClient m_TcpClient;
         private NetworkStream m_Stream;
-        private StreamWriter m_Writer;
-        private StreamReader m_Reader;
+
+        private BinaryFormatter m_Formatter = new BinaryFormatter();
+        private BinaryWriter m_Writer;
+        private BinaryReader m_Reader;
+
 
         public int Port { get; set; }
         public MainWindow form;
@@ -41,8 +46,9 @@ namespace ClientProj
             {
                 m_TcpClient.Connect("127.0.0.1", 4444);
                 m_Stream = m_TcpClient.GetStream();
-                m_Reader = new StreamReader(m_Stream, Encoding.UTF8);
-                m_Writer = new StreamWriter(m_Stream, Encoding.UTF8);
+                m_Reader = new BinaryReader(m_Stream, Encoding.UTF8);
+                m_Writer = new BinaryWriter(m_Stream, Encoding.UTF8);
+                m_Formatter = new BinaryFormatter();
                 return true;
             }
             catch (Exception e)
@@ -66,8 +72,20 @@ namespace ClientProj
             {
                 try
                 {
-                    string response = m_Reader.ReadLine();
-                    form.UpdateChatBox( response + "\n");
+
+                    // Create a memory stream that contains the serialized data
+                    int numberOfBytes = m_Reader.ReadInt16();
+                    byte[] data = m_Reader.ReadBytes(numberOfBytes);
+
+                    using (MemoryStream ms = new MemoryStream(data))
+                    {
+                        // Deserialize the object
+                        Packet obj = (Packet)m_Formatter.Deserialize(ms);
+
+                        form.UpdateChatBox("" + "\n");
+                    }
+
+                    
                 }
                 catch (Exception e)
                 {
@@ -75,13 +93,24 @@ namespace ClientProj
                     break;
                 }
             }
+
         }
 
-        public void SendMessage(string message)
+        public void Send(String message)
         {
+            lock (m_Writer)
+            {
+                MemoryStream ms = new MemoryStream();
 
-            m_Writer.WriteLine(message);
-            m_Writer.Flush();
+                ChatMessagePacket chatmessage = new ChatMessagePacket(message);
+                m_Formatter.Serialize(ms, chatmessage);
+                byte[] bytes = ms.GetBuffer();
+                Int32 length = bytes.Length;
+
+                m_Writer.Write(length);
+                m_Writer.Write(bytes);
+                m_Writer.Flush();
+            }
         }
     }
 }

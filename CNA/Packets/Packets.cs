@@ -11,23 +11,13 @@ namespace Packets
             PrivateMessage,
             CleintName
         }
-        public PacketType packetType
-        {
-            get
-            {
-                return packetType;
-            }
-            protected set
-            {
-                packetType = value;
-            }
-        }
+        public PacketType packetType { get; internal set; }
     }
 
     [Serializable]
     public class ChatMessagePacket : Packet
     {
-        public string message { get; private set; }
+        public string message { get; set; }
 
         public ChatMessagePacket(string message)
         {
