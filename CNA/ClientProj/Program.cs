@@ -70,28 +70,54 @@ namespace ClientProj
         {
             while (m_TcpClient.Connected)
             {
+                int numberOfBytes = -1;
                 try
                 {
-
                     // Create a memory stream that contains the serialized data
-                    int numberOfBytes = m_Reader.ReadInt16();
-                    byte[] data = m_Reader.ReadBytes(numberOfBytes);
+                    numberOfBytes = m_Reader.ReadInt16();
 
-                    using (MemoryStream ms = new MemoryStream(data))
+                    if (numberOfBytes > 0)
                     {
-                        // Deserialize the object
-                        Packet obj = (Packet)m_Formatter.Deserialize(ms);
+                        byte[] data = m_Reader.ReadBytes(numberOfBytes);
+                        byte[] newData = new byte[data.Length];
+                        Array.Copy(data, 2, newData, 0, newData.Length - 2);
+                        Array.Copy(data, 0, newData, newData.Length - 2, 2);
+                        Array.Copy(newData, 0, data, 0, newData.Length);
 
-                        form.UpdateChatBox("" + "\n");
+                        //for (int i = 0; i < numberOfBytes; i++)
+                        //{
+                        //    Console.Write(data[i] + " ");
+                        //}
+
+                        MemoryStream ms = new MemoryStream(data);
+
+                        // Deserialize the object
+                        Packet receivedPacket = (Packet)m_Formatter.Deserialize(ms);
+                        switch (receivedPacket.packetType)
+                        {
+                            case Packet.PacketType.ChatMessage:
+                                ChatMessagePacket chatMessagePacket = (ChatMessagePacket)receivedPacket;
+                                form.UpdateChatBox(chatMessagePacket.message + "\n");
+                                break;
+                            case Packet.PacketType.ClientList:
+                                ClientListPacket clientListPacket = (ClientListPacket)receivedPacket;
+
+                                form.UpdateChatBox(clientListPacket.Names);
+                                break;
+                            default:
+
+                                break;
+                        }
                     }
 
-                    
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine(numberOfBytes);
                     Console.WriteLine("Exception: " + e.Message);
                     break;
                 }
+
             }
 
         }
@@ -104,11 +130,37 @@ namespace ClientProj
 
                 ChatMessagePacket chatmessage = new ChatMessagePacket(message);
                 m_Formatter.Serialize(ms, chatmessage);
-                byte[] bytes = ms.GetBuffer();
-                Int32 length = bytes.Length;
+                byte[] data = ms.GetBuffer();
 
-                m_Writer.Write(length);
-                m_Writer.Write(bytes);
+
+                //for (int i = 0; i < data.Length; i++)
+                //{
+                //    Console.Write(data[i] + " ");
+                //}
+
+                m_Writer.Write(data.Length);
+                m_Writer.Write(data);
+                m_Writer.Flush();
+            }
+        }
+
+        public void SetNickName(String NickName)
+        {
+            lock (m_Writer)
+            {
+                MemoryStream ms = new MemoryStream();
+
+                ClientNamePacket NickNamePacket = new ClientNamePacket(NickName);
+                m_Formatter.Serialize(ms, NickNamePacket);
+                byte[] data = ms.GetBuffer();
+
+                //for (int i = 0; i < data.Length; i++)
+                //{
+                //    Console.Write(data[i] + " ");
+                //}
+
+                m_Writer.Write(data.Length);
+                m_Writer.Write(data);
                 m_Writer.Flush();
             }
         }

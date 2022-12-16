@@ -61,7 +61,7 @@ namespace ServerProj
             }
             
         }
-
+        
         public void Stop()
         {
             m_TcpListener.Stop();
@@ -72,35 +72,67 @@ namespace ServerProj
             Console.WriteLine(index);
             Packet receivedPacket = null;
 
-            m_Clients[index].SendMessage(new ChatMessagePacket("hello"));
+            m_Clients[index].SendMessage(new ChatMessagePacket("hello there can i help you"));
 
             while ((receivedPacket = m_Clients[index].Read()) != null)
             {
                 // Use a switch statement to handle the different types of packets
                 switch (receivedPacket.packetType)
-                {
+                {  
                     case Packet.PacketType.ChatMessage:
                         ChatMessagePacket chatMessagePacket = (ChatMessagePacket)receivedPacket;
 
                         string receivedMessage = GetReturnMessage(chatMessagePacket.message);
 
                         // Broadcast the message to all connected clients
-                        //BroadcastMessage(receivedMessage);
+                        BroadcastMessage(receivedMessage,index);
+
+                        break;
+                    case Packet.PacketType.ClientName:
+                        string[] ClientNames = new string[m_Clients.Count];
+                        m_Clients[index].SetClientName(receivedPacket,ClientNames);
+                        for (int i = 0; i < m_Clients.Count; i++)
+                        {
+                            ClientNames[i] = m_Clients[i].m_Name;
+                        }
+                        BroadcastNames(ClientNames);
+
+                        break;
+                    case Packet.PacketType.PrivateMessage:
+
+                        break;
+                    case Packet.PacketType.Empty:
+
+                        break;
+                    default:
 
                         break;
                 }
+
             }
 
-            m_Clients[index].Close();
+            //m_Clients[index].Close();
         }
 
-        //public void BroadcastMessage(string message)
-        //{
-        //    foreach (var client in m_Clients.Values)
-        //    {
-        //        client.SendMessage(message);
-        //    }
-        //}
+        public void BroadcastNames(string[] names)
+        {
+            foreach (var client in m_Clients.Values)
+            {
+                ClientListPacket messsagePacket = new ClientListPacket(names);
+                client.SendMessage(messsagePacket);
+            }
+        }
+
+        public void BroadcastMessage(string message,int index)
+        {
+            foreach (var client in m_Clients.Values)
+            {
+                ChatMessagePacket messsagePacket = new ChatMessagePacket(DateTime.Now + " [" + m_Clients[index].m_Name + "]: " + message);
+                client.SendMessage(messsagePacket);
+            }
+        }
+
+
 
         private string GetReturnMessage(string code)
         {
@@ -121,9 +153,13 @@ namespace ServerProj
         BinaryFormatter m_Formatter;
         object m_ReadLock;
         object m_WriteLock;
+        public string m_Name { get; private set; }
 
         public ConnectedClient(Socket socket)
         {
+            m_Name = " "; 
+
+
             m_WriteLock = new object();
             m_ReadLock = new object();
 
@@ -150,45 +186,58 @@ namespace ServerProj
             {
                 try
                 {
-                    if (m_Reader.ReadInt32() != -1)
-                    {
-                        Int32 length = m_Reader.ReadInt32();
-                        byte[] buffer = m_Reader.ReadBytes(length);
+                    // Create a memory stream that contains the serialized data
+                    int numberOfBytes = m_Reader.ReadInt16();
 
-                        MemoryStream ms = new MemoryStream(buffer);
-                        return (Packet)m_Formatter.Deserialize(ms) as ChatMessagePacket;
-                        
+                    if (numberOfBytes > 0)
+                    {
+                        byte[] data = m_Reader.ReadBytes(numberOfBytes);
+                        byte[] newData = new byte[data.Length];
+                        Array.Copy(data, 2, newData, 0, newData.Length - 2);
+                        Array.Copy(data, 0, newData, newData.Length - 2, 2);
+                        Array.Copy(newData, 0, data, 0, newData.Length);
+
+                        //for (int i = 0; i < numberOfBytes; i++)
+                        //{
+                        //    Console.Write(data[i] + " ");
+                        //}
+
+                        MemoryStream ms = new MemoryStream(data);
+                        m_ReadLock = new object();
+                        return (Packet)m_Formatter.Deserialize(ms) as Packet;
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error while reading packet: {ex.Message}");
-                }
-                return null;
-
-                int numberOfBytes;
-                if ((numberOfBytes = m_Reader.ReadInt32()) != -1)
-                {
-                    byte[] buffer = m_Reader.ReadBytes(numberOfBytes);
-                    MemoryStream ms = new MemoryStream();
-                    ms.Write(buffer);
-
-                }
-                return m_Reader.ReadLine();
+                } 
+                return new EmptyPacket();
             }
         }
 
-        public void SendMessage(Packet message)
+        public void SendMessage(Packet packet)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                m_Formatter.Serialize(ms, message);
-                Console.WriteLine(Encoding.UTF8.GetString(ms.ToArray()));
+                m_Formatter.Serialize(ms, packet);
+
                 byte[] buffer = ms.GetBuffer();
+
+                //for (int i = 0; i < buffer.Length; i++)
+                //{
+                //    Console.Write(buffer[i] + " ");
+                //}
+
                 m_Writer.Write(buffer.Length);
                 m_Writer.Write(buffer);
                 m_Writer.Flush();
             }
+        }
+
+        public void SetClientName(Packet receivedPacket, string[] ClientCount) 
+        {
+            ClientNamePacket NamePacket = (ClientNamePacket)receivedPacket;
+            m_Name = NamePacket.Name;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace ClientProj
     public partial class MainWindow : Window
     {
         Client m_client;
+        public bool nameSet = false;
         public MainWindow(Client client)
         {
             InitializeComponent();
@@ -46,6 +47,18 @@ namespace ClientProj
             });
         }
 
+        public void UpdateChatBox(string[] Clients)
+        {
+            ClientList.Dispatcher.Invoke(() => ClientList.Clear());
+            ClientList.Dispatcher.Invoke(() =>
+            {
+                for (int i = 0; i < Clients.Length; i++)
+                {
+                    ClientList.Text += Clients[i] + Environment.NewLine; ChatBox.ScrollToEnd(); 
+                }
+            });
+        }
+
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
 
@@ -58,15 +71,32 @@ namespace ClientProj
 
         private string SendMessage(string message, string name)
         {
-            if (message == "" || name == "")
+            if (message == "" || name == "" || nameSet == false)
             {
                 MessageBox.Show("Please Fill Out The Required Boxes.", "Straight Oopsies");
-                return "";
+                return ""; 
             }
             else
             {
+                return /*DateTime.Now + " [" + name + "]: " +*/ message/* + "\n"*/;
+            }
+        }
 
-                return DateTime.Now + " [" + name + "]: " + message + "\n";
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            SetName(LocalName.Text);
+        }
+
+        private void SetName(string name) 
+        {
+            if (name == "")
+            {
+                MessageBox.Show("Please Fill Out The Required Boxes.", "Straight Oopsies");
+            }
+            else
+            {
+                nameSet = true;
+                m_client.SetNickName(name);
             }
         }
     }
