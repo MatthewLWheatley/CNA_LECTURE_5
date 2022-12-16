@@ -83,10 +83,15 @@ namespace ServerProj
                         ChatMessagePacket chatMessagePacket = (ChatMessagePacket)receivedPacket;
 
                         string receivedMessage = GetReturnMessage(chatMessagePacket.message);
-
-                        // Broadcast the message to all connected clients
-                        BroadcastMessage(receivedMessage,index);
-
+                        if (receivedMessage[0] == '/')
+                        {
+                            PrivateMessage(receivedMessage);
+                        }
+                        else
+                        {
+                            // Broadcast the message to all connected clients
+                            BroadcastMessage(receivedMessage, index);
+                        }
                         break;
                     case Packet.PacketType.ClientName:
                         string[] ClientNames = new string[m_Clients.Count];
@@ -114,6 +119,12 @@ namespace ServerProj
             //m_Clients[index].Close();
         }
 
+        public void PrivateMessage(string message) 
+        {
+            string newMessage = message.Substring(3);
+            ChatMessagePacket messsagePacket = new ChatMessagePacket(DateTime.Now + " [" + m_Clients[(int)message[1] - 1].m_Name + "]: " + message);
+            m_Clients[(int)message[1]-1].SendMessage(messsagePacket);
+        }
         public void BroadcastNames(string[] names)
         {
             foreach (var client in m_Clients.Values)
